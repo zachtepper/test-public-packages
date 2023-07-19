@@ -29,4 +29,4 @@ jobs:
             - name: debug
               run: ls
             - name: Publish package
-              run: dotnet nuget push ${{matrix.projects}}/bin/Release/*.nupkg
+              run: dotnet nuget push */bin/Release/*.nupkg
