@@ -26,5 +26,7 @@ jobs:
               run: dotnet build --configuration Release ${{matrix.projects}}
             - name: Create the package
               run: dotnet pack --configuration release ${{matrix.projects}}
+            - name: debug
+              run: ls
             - name: Publish package
               run: dotnet nuget push ${{matrix.projects}}/bin/Release/*.nupkg
