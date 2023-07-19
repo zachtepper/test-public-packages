@@ -6,6 +6,9 @@ on:
 
 jobs:
     deploy:
+        strategy:
+            matrix:
+                projects: [TEST_PACKAGE]
         runs-on: ubuntu-latest
         permissions:
             packages: write
@@ -20,8 +23,8 @@ jobs:
               env:
                 NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Build
-              run: dotnet build --configuration Release TEST_PACKAGE
+              run: dotnet build --configuration Release ${{matrix.projects}}
             - name: Create the package
-              run: dotnet pack --configuration release TEST_PACKAGE
+              run: dotnet pack --configuration release ${{matrix.projects}}
             - name: Publish package
-              run: dotnet nuget push */bin/Release/*.nupkg
+              run: dotnet nuget push ${{matrix.projects}}/bin/Release/*.nupkg
